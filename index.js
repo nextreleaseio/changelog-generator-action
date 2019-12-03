@@ -36,6 +36,7 @@ async function run() {
     }
     currentContents = `${data.contents} ${NEWLINE}`;
   } catch(e) {
+    console.log(e);
     changelogExists = false;
   }
 
