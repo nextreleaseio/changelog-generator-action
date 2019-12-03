@@ -1,0 +1,14 @@
+name: "Next Release Changelog Generator"
+description: "Create a changelog based on your release body."
+inputs:
+  changelog:
+    description: 'Changelog full filepath'
+    required: true
+    default: 'CHANGELOG.md'
+  token:
+    default: 'asdfasd'
+
+
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
