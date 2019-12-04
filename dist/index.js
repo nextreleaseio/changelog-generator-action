@@ -537,7 +537,7 @@ async function run() {
 
   let { url, tag, name, body } = getReleaseData(eventPath);
 
-  currentContents += `### [${name}](${url}) ${NEWLINE} ${tag} ${NEWLINE} ${body}`;
+  currentContents += `### [${name}](${url}) ${NEWLINE} **${tag}** ${NEWLINE} ${body}`;
 
   let buff = new Buffer.from(currentContents);
   let content = buff.toString("base64");

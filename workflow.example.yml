@@ -6,11 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Update Changelog
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
       - name: Create Changelog.md
         id: changelog
-        uses: nextreleaase/next-release-changelog-action@master
+        uses: nextrelease/changelog-generator-action@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }} # Required
           changelog: 'CHANGELOG.md' # optional, default: CHANGELOG.md

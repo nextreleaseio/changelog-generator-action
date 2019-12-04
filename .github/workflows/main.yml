@@ -2,15 +2,13 @@ on:
   release:
     types: [published]
 jobs:
-  testing_one:
+  generate_changelog:
     runs-on: ubuntu-latest
     name: Update Changelog
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
       - name: Create Changelog.md
         id: changelog
-        uses: donaldwasserman/test-action@master
+        uses: nextrelease/changelog-generator-action@master
         with:
-          changelog: 'CHANGELOG.md'
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }} # Required
+          changelog: 'CHANGELOG.md' # optional, default: CHANGELOG.md

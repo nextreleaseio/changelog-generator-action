@@ -18,7 +18,6 @@
   },
   "lint-staged": {
     "*.js": [
-      "yarn build",
       "prettier --write",
       "git add"
     ],
@@ -29,7 +28,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && yarn build"
     }
   }
 }
