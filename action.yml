@@ -1,0 +1,14 @@
+name: "Next Release Changelog Generator"
+description: "Create a changelog based on your release body."
+inputs:
+  changelog:
+    description: 'Filepath to changelog'
+    required: true
+    default: 'CHANGELOG.md'
+  token:
+    required: true
+    description: '${{ secrets.GITHUB_TOKEN }}'
+
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
