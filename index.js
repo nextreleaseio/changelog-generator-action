@@ -37,14 +37,13 @@ async function run() {
     }
     currentContents = `${data.contents} ${NEWLINE}`;
   } catch(e) {
-    console.log(e);
     changelogExists = false;
   }
 
 
   let { url, tag, name, body } = getReleaseData(eventPath);
 
-  currentContents += `### [${name}](${url}) ${NEWLINE} ${body}`;
+  currentContents += `### [${name}](${url}) ${NEWLINE} ${tag} ${NEWLINE} ${body}`;
 
   let buff = new Buffer.from(currentContents);
   let content = buff.toString("base64");
