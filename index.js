@@ -1,4 +1,5 @@
 const core = require("@actions/core");
+const fs = require('fs');
 const { GitHub } = require("@actions/github");
 
 const NEWLINE = " \n ";
