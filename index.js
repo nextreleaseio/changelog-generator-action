@@ -35,17 +35,17 @@ async function run() {
     if (data.sha) {
       sha = data.sha;
     }
-    console.log(data.content);
-    currentContents = `${data.content} ${NEWLINE}`;
+    let contentBuffer = Buffer.from(data.content, 'base64');
+    currentContents = `${contentBuffer.toString('utf8')} ${NEWLINE}`;
   } catch (e) {
     changelogExists = false;
   }
 
   let { url, tag, name, body } = getReleaseData(eventPath);
 
-  currentContents += `### [${name}](${url}) ${NEWLINE} **${tag}** ${NEWLINE} ${body}`;
-
-  let buff = new Buffer.from(currentContents);
+  let newContents =
+    `### [${name}](${url}) ${NEWLINE} **${tag}** ${NEWLINE} ${body}` + currentContents;
+  let buff = new Buffer.from(newContents);
   let content = buff.toString('base64');
 
   let options = {
