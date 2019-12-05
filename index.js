@@ -1,25 +1,25 @@
-const core = require("@actions/core");
+const core = require('@actions/core');
 const fs = require('fs');
-const { GitHub } = require("@actions/github");
+const { GitHub } = require('@actions/github');
 
-const NEWLINE = " \n ";
+const NEWLINE = ' \n ';
 
 async function run() {
-  const path = core.getInput("changelog"),
-    token = core.getInput("token"),
+  const path = core.getInput('changelog'),
+    token = core.getInput('token'),
     ownerRepo = process.env.GITHUB_REPOSITORY,
     eventPath = process.env.GITHUB_EVENT_PATH,
     eventName = process.env.GITHUB_EVENT_NAME;
 
-  const [owner, repo] = ownerRepo.split("/");
+  const [owner, repo] = ownerRepo.split('/');
 
   if (!token) {
-    core.error("Must provide valid `token` parameter.");
+    core.error('Must provide valid `token` parameter.');
   }
 
   const octokit = new GitHub(token);
   let sha;
-  let currentContents = "";
+  let currentContents = '';
   let changelogExists = true;
 
   try {
@@ -29,24 +29,24 @@ async function run() {
       path
     });
 
-    if (data.type !== "file") {
+    if (data.type !== 'file') {
       core.error(`Your specified changelog ${path}, is not a file`);
     }
     if (data.sha) {
       sha = data.sha;
     }
-    currentContents = `${data.contents} ${NEWLINE}`;
-  } catch(e) {
+    console.log(data.content);
+    currentContents = `${data.content} ${NEWLINE}`;
+  } catch (e) {
     changelogExists = false;
   }
-
 
   let { url, tag, name, body } = getReleaseData(eventPath);
 
   currentContents += `### [${name}](${url}) ${NEWLINE} **${tag}** ${NEWLINE} ${body}`;
 
   let buff = new Buffer.from(currentContents);
-  let content = buff.toString("base64");
+  let content = buff.toString('base64');
 
   let options = {
     owner,
@@ -68,7 +68,7 @@ async function run() {
 }
 
 function getReleaseData(eventPath) {
-  const event = JSON.parse(fs.readFileSync(eventPath, "utf8"));
+  const event = JSON.parse(fs.readFileSync(eventPath, 'utf8'));
 
   let { html_url: url, tag_name: tag, name, body } = event.release;
 
