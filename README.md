@@ -8,14 +8,13 @@ This is built by the team at [Next Release](https://www.nextrelease.io), but wil
 
 ## Quick Start
 
-
 ```yml
 on:
   release:
     types: [published]
 jobs:
   generate_changelog:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # Configure this based on your needs
     name: Update Changelog
     steps:
       - name: Create Changelog.md
@@ -23,7 +22,7 @@ jobs:
         uses: nextrelease/next-release-changelog-action@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }} # Required
-          changelog: 'CHANGELOG.md' # optional, default: CHANGELOG.md
+          changelog: "CHANGELOG.md" # optional, default: CHANGELOG.md
 ```
 
 ## How It Works
