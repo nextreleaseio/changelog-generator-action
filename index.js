@@ -8,6 +8,7 @@ async function run() {
   const path = core.getInput('changelog'),
     token = core.getInput('token'),
     usePr = core.getInput('use_pullrequest'),
+    defaultBranch = core.getInput('default_branch'),
     ownerRepo = process.env.GITHUB_REPOSITORY,
     eventPath = process.env.GITHUB_EVENT_PATH,
     eventName = process.env.GITHUB_EVENT_NAME;
@@ -53,6 +54,7 @@ async function run() {
     owner,
     repo,
     path,
+    branch: defaultBranch,
     message: `Updated ${path} via Next Release action.`,
     content
   };
@@ -68,11 +70,12 @@ async function run() {
         owner,
         repo,
         sha,
-        ref: `ref/heads/${branch}`
+        ref: `refs/heads/${branch}`
       });
       options.branch = branch;
     } catch (e) {
       core.error(`Failed creating changelog PR: ${e}`);
+      return;
     }
   }
 
@@ -80,6 +83,10 @@ async function run() {
     await octokit.repos.createOrUpdateFile(options);
   } catch (e) {
     core.error(`Failed updating Changelog: ${e}`);
+  }
+
+  if (usePr) {
+    await octokit.repo.get();
   }
 }
 
