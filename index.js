@@ -7,6 +7,7 @@ const NEWLINE = ' \n ';
 async function run() {
   const path = core.getInput('changelog'),
     token = core.getInput('token'),
+    usePr = core.getInput('use_pullrequest'),
     ownerRepo = process.env.GITHUB_REPOSITORY,
     eventPath = process.env.GITHUB_EVENT_PATH,
     eventName = process.env.GITHUB_EVENT_NAME;
@@ -58,6 +59,21 @@ async function run() {
 
   if (changelogExists) {
     options.sha = sha;
+  }
+
+  if (usePr) {
+    let branch = core.getInput('branch_name') || `changelog-${tag}`;
+    try {
+      await octokit.git.createRef({
+        owner,
+        repo,
+        sha,
+        ref: `ref/heads/${branch}`
+      });
+      options.branch = branch;
+    } catch (e) {
+      core.error(`Failed creating changelog PR: ${e}`);
+    }
   }
 
   try {

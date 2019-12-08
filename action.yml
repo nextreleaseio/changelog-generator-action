@@ -8,6 +8,12 @@ inputs:
   token:
     required: true
     description: '<path to token>'
+  use_pullrequest:
+    default: false
+    description: 'Use a pull request to generate the changelog instead of a direct commit'
+  branch_name:
+    required: false
+    description: 'The branch name to use for a pull request for your changelog (If `use_pullrequest` is true)'
 
 runs:
   using: 'node12'

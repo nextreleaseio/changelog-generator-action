@@ -23,6 +23,8 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }} # Required
           changelog: "CHANGELOG.md" # optional, default: CHANGELOG.md
+          use_pullrequest: true # can be false is you don't enable branch protection
+          branch_name: ${{ join('changelog-', github.release.tag_name) }} # if `use_pullrequest` is true, will use this as default
 ```
 
 ## How It Works
