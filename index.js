@@ -67,11 +67,25 @@ async function run() {
 
   if (usePr) {
     console.log(branch);
+    let refSha;
+    try {
+      let { data } = await octokit.git.getRef({
+        owner,
+        repo,
+        ref: `heads/${releaseBranch}`
+      });
+
+      refSha = data.object.sha;
+    } catch (e) {
+      core.error(`Error creating changelog PR ${e}`);
+      return;
+    }
+
     try {
       await octokit.git.createRef({
         owner,
         repo,
-        sha,
+        sha: refSha,
         ref: `refs/heads/${branch}`
       });
       options.branch = branch;
