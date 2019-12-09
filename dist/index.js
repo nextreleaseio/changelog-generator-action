@@ -559,7 +559,7 @@ async function run() {
 
   if (usePr) {
     let branch = core.getInput('branch_name') || `changelog-${tag}`;
-    console.log(brach);
+    console.log(branch);
     try {
       await octokit.git.createRef({
         owner,
