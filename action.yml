@@ -16,7 +16,7 @@ inputs:
     description: 'The branch name to use for a pull request for your changelog (If `use_pullrequest` is true)'
   default_branch:
     required: false
-    description: 'The branch name to commit / make pull request against for changelog'
+    description: 'The branch name to commit / make pull request against for changelog if different than the tagged branch'
 
 runs:
   using: 'node12'
