@@ -66,7 +66,6 @@ async function run() {
   let branch = core.getInput('branch_name') || `changelog-${tag}`;
 
   if (usePr) {
-    console.log(branch);
     let refSha;
     try {
       let { data } = await octokit.git.getRef({
@@ -90,7 +89,6 @@ async function run() {
       });
       options.branch = branch;
     } catch (e) {
-      console.log(e);
       core.error(`Failed creating changelog PR: ${e}`);
       return;
     }
