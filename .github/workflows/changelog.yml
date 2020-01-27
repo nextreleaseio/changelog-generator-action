@@ -12,3 +12,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }} # Required
           changelog: 'CHANGELOG.md' # optional, default: CHANGELOG.md
+          use_pullrequest: true

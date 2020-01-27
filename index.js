@@ -10,8 +10,7 @@ async function run() {
     usePr = core.getInput('use_pullrequest'),
     defaultBranch = core.getInput('default_branch'),
     ownerRepo = process.env.GITHUB_REPOSITORY,
-    eventPath = process.env.GITHUB_EVENT_PATH,
-    eventName = process.env.GITHUB_EVENT_NAME;
+    eventPath = process.env.GITHUB_EVENT_PATH;
 
   const [owner, repo] = ownerRepo.split('/');
 
@@ -38,7 +37,7 @@ async function run() {
       sha = data.sha;
     }
     let contentBuffer = Buffer.from(data.content, 'base64');
-    currentContents = `${contentBuffer.toString('utf8')} ${NEWLINE}`;
+    currentContents = `${contentBuffer.toString('utf8')}`;
   } catch (e) {
     changelogExists = false;
   }
@@ -47,8 +46,7 @@ async function run() {
 
   let branch = defaultBranch || releaseBranch;
 
-  let newContents =
-    `### [${name}](${url}) ${NEWLINE} **${tag}** ${NEWLINE} ${body}` + currentContents;
+  let newContents = `### [${name}](${url}) ${NEWLINE} **${tag}** ${NEWLINE} ${body} ${NEWLINE} ${currentContents}`;
   let buff = new Buffer.from(newContents);
   let content = buff.toString('base64');
 
