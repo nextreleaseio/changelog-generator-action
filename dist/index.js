@@ -496,7 +496,7 @@ const core = __webpack_require__(470);
 const fs = __webpack_require__(747);
 const { GitHub } = __webpack_require__(469);
 
-const NEWLINE = ' \n ';
+const NEWLINE = ' \n';
 
 async function run() {
   const path = core.getInput('changelog'),
@@ -540,7 +540,7 @@ async function run() {
 
   let branch = defaultBranch || releaseBranch;
 
-  let newContents = `### [${name}](${url}) ${NEWLINE} **${tag}** ${NEWLINE} ${body} ${NEWLINE} ${currentContents}`;
+  let newContents = `### [${name}](${url}) ${NEWLINE} **${tag}** ${NEWLINE} ${body} ${NEWLINE}${currentContents}`;
   let buff = new Buffer.from(newContents);
   let content = buff.toString('base64');
 

@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const fs = require('fs');
 const { GitHub } = require('@actions/github');
 
-const NEWLINE = ' \n ';
+const NEWLINE = ' \n';
 
 async function run() {
   const path = core.getInput('changelog'),
@@ -46,7 +46,7 @@ async function run() {
 
   let branch = defaultBranch || releaseBranch;
 
-  let newContents = `### [${name}](${url}) ${NEWLINE} **${tag}** ${NEWLINE} ${body} ${NEWLINE} ${currentContents}`;
+  let newContents = `### [${name}](${url}) ${NEWLINE} **${tag}** ${NEWLINE} ${body} ${NEWLINE}${currentContents}`;
   let buff = new Buffer.from(newContents);
   let content = buff.toString('base64');
 
