@@ -536,7 +536,9 @@ async function run() {
     changelogExists = false;
   }
 
-  let { url, tag, name, body, releaseBranch } = getReleaseData(eventPath);
+  let { url, tag, name, body, releaseBranch, repoDefaultBranch } = getReleaseData(
+    eventPath
+  );
 
   let branch = defaultBranch || releaseBranch;
 
@@ -558,6 +560,10 @@ async function run() {
   }
 
   let prBranch = core.getInput('branch_name') || `changelog-${tag}`;
+
+  if (!prBranch) {
+    prBranch = repoDefaultBranch;
+  }
 
   if (usePr) {
     let refSha;
@@ -618,7 +624,8 @@ function getReleaseData(eventPath) {
     target_commitish: releaseBranch
   } = event.release;
 
-  return { url, tag, name, body, releaseBranch };
+  let { default_branch: repoDefaultBranch } = event.repository;
+  return { url, tag, name, body, releaseBranch, repoDefaultBranch };
 }
 
 run();
