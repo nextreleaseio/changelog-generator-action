@@ -540,7 +540,7 @@ async function run() {
 
   let branch = defaultBranch || releaseBranch;
 
-  let newContents = `### [${name}](${url}) ${NEWLINE} **${tag}** ${NEWLINE} ${body} ${NEWLINE}${currentContents}`;
+  let newContents = `### [${name}](${url})${NEWLINE} ${body} ${NEWLINE}${currentContents}`;
   let buff = new Buffer.from(newContents);
   let content = buff.toString('base64');
 
